@@ -8,7 +8,7 @@ public class PlayerSpaceShip : MonoBehaviour {
     public int hp = 0;
     public int level = 0;
     public float attack = 0;
-    public float armor = 0;
+    public ArmorBehavior armor;
     public float heatThreshold = 0.0f;
 
     public ShieldBehavior shield;
@@ -24,7 +24,8 @@ public class PlayerSpaceShip : MonoBehaviour {
         GunBehavior mallowGun = new GunBehavior("Mallow Gun", 1.0f, 1.0f);
         GunBehavior wristRocket = new GunBehavior("Wrist Rocket", 0.8f, 1.1f);
 
-        shield = new ShieldBehavior("Mighty Shield", 10.0f, 1.0f, 0.5f);
+        shield = new ShieldBehavior("Mighty Shield", 10.0f, 0.5f);
+        armor = new ArmorBehavior("Cardboard", 100.0f);
 
         guns.Add("first",peaShooter);
         guns.Add("second",mallowGun);
