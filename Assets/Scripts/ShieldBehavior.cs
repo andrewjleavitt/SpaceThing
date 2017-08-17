@@ -9,10 +9,10 @@ public class ShieldBehavior {
     private float nextRecharge = 0.0f;
     private string shieldName;
 
-    public ShieldBehavior(string newShieldName, float newCapacity, float newRechargeAmount, float rechargeRate) {
+    public ShieldBehavior(string newShieldName, float newCapacity, float newRechargeRate) {
         shieldName = newShieldName;
         capacity = newCapacity;
-        rechargeRate = newRechargeAmount;
+        rechargeRate = newRechargeRate;
         amount = capacity;
     }
 
