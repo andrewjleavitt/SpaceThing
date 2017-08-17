@@ -1,4 +1,4 @@
-# SpaceRogue
+# SpaceThing
 
 I want to make a game.
 
