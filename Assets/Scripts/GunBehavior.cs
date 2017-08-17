@@ -28,7 +28,7 @@ public class GunBehavior {
     }
 
     private void Fire() {
-        Debug.unityLogger.Log("INFO", string.Format("Player Gun: {0} Triggered", weaponName));
+        Debug.unityLogger.Log("INFO", string.Format("Gun: {0} Triggered", weaponName));
         Exhaust();
         nextFire = Time.time + fireRate;
     }

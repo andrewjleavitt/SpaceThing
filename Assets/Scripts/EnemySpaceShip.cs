@@ -6,31 +6,25 @@ public class EnemySpaceShip : MonoBehaviour {
 
     public int hp = 0;
     public int level = 0;
-    public int attack = 0;
-    public int armor = 0;
-    public float fireRate = 0.0f;
 
-    private bool triggerGun = false;
-    private float nextFire = 0;
+    public Dictionary<string, GunBehavior> guns = new Dictionary<string, GunBehavior>();
+
+    GunBehavior slowPeaShooter = new GunBehavior("Slow Pea Shooter", 3f, 0.1f);
 
     void Start() {
-
+        guns.Add("first", slowPeaShooter);
     }
 
     void Update() {
-        aiAction();
-        // fireGun();
+        getAiAction();
     }
 
-    void aiAction() {
-       triggerGun = true;
+    void getAiAction() {
+        FireGunInPosition("first");
     }
 
-    void fireGun() {
-        if (triggerGun && Time.time > nextFire) {
-        nextFire = Time.time + fireRate;
-            Debug.unityLogger.Log("INFO", "Enemy Gun Triggered");
-            triggerGun = false;
-        }
+    private void FireGunInPosition(string v) {
+        guns[v].Trigger();
+        guns[v].HeatTransfer();
     }
 }

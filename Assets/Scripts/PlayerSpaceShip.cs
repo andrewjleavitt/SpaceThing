@@ -7,10 +7,9 @@ public class PlayerSpaceShip : MonoBehaviour {
 
     public int hp = 0;
     public int level = 0;
-    public float attack = 0;
-    public ArmorBehavior armor;
     public float heatThreshold = 0.0f;
 
+    public ArmorBehavior armor;
     public ShieldBehavior shield;
     public Dictionary <string, GunBehavior> guns = new Dictionary<string, GunBehavior>();
     public HeatsinkBehavior heatsink;
