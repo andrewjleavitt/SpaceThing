@@ -14,9 +14,6 @@ public class PlayerSpaceShip : MonoBehaviour {
     public ShieldBehavior shield;
     public Dictionary <string, GunBehavior> guns = new Dictionary<string, GunBehavior>();
     public HeatsinkBehavior heatsink;
-
-    public GunBehavior[] weapons;
-
     private float heat = 0.0f;
 
     void Start() {
