@@ -7,12 +7,11 @@ public class LevelManager : MonoBehaviour {
 
     public EnemySpaceShip enemy;
 
-    internal void SetupLevel() {
-        enemy = new EnemySpaceShip();
-        LayoutObject(enemy);
+    public void SetupLevel() {
+        LayoutObject();
     }
 
-    private void LayoutObject(EnemySpaceShip enemy) {
+    private void LayoutObject() {
         Instantiate(enemy, new Vector3(9f, 0f, 0f), Quaternion.identity);
     }
 }

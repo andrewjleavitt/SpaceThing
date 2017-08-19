@@ -6,7 +6,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;
-
     private LevelManager levelScript;
 
     void Awake() {
@@ -18,7 +17,7 @@ public class GameManager : MonoBehaviour {
 
         DontDestroyOnLoad(gameObject);
 
-        levelScript = GetComponent<LevelManager>();
+        levelScript = GetComponentInChildren<LevelManager>();
         InitGame();
     }
 
