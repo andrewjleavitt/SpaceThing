@@ -22,6 +22,7 @@ public class PlayerSpaceShip : MonoBehaviour {
 
         shield = new ShieldBehavior("Mighty Shield", 10.0f, 0.5f);
         armor = new ArmorBehavior("Cardboard", 100.0f);
+        heatsink = new HeatsinkBehavior(0.4f);
 
         guns.Add("first",peaShooter);
         guns.Add("second",mallowGun);
