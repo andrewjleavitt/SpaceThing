@@ -22,7 +22,7 @@ public class PlayerSpaceShip : MonoBehaviour {
 
         shield = new ShieldBehavior("Mighty Shield", 10.0f, 0.5f);
         armor = new ArmorBehavior("Cardboard", 100.0f);
-        heatsink = new HeatsinkBehavior(0.4f);
+        heatsink = new HeatsinkBehavior(1.0f);
 
         guns.Add("first",peaShooter);
         guns.Add("second",mallowGun);
@@ -30,7 +30,9 @@ public class PlayerSpaceShip : MonoBehaviour {
     }
 
     void Update () {
-        GetUserAction();
+        if (!IsOverheating()) {
+            GetUserAction();
+        }
         SinkHeat();
         RegenerateShields();
     }
@@ -54,10 +56,6 @@ public class PlayerSpaceShip : MonoBehaviour {
     }
 
     private void GetUserAction() {
-        if (IsOverheating()) {
-            return;
-        }
-
         if (Input.GetKeyDown("a")) {
             FireGunInPosition("first");
         } else if (Input.GetKeyDown("s")) {
