@@ -9,10 +9,15 @@ public class EnemySpaceShip : MonoBehaviour {
 
     public Dictionary<string, GunBehavior> guns = new Dictionary<string, GunBehavior>();
 
-    GunBehavior slowPeaShooter = new GunBehavior("Slow Pea Shooter", 3f, 0.1f);
+	private GunBehavior slowPeaShooter;
+    
+	void Start() {
+		slowPeaShooter = gameObject.AddComponent<GunBehavior>();
+		slowPeaShooter.weaponName = "Slow Pea Shooter";
+        slowPeaShooter.fireRate = 3.0f;
+        slowPeaShooter.heat = 2.0f;
 
-    void Start() {
-        guns.Add("first", slowPeaShooter);
+		guns.Add("first", slowPeaShooter);
     }
 
     void Update() {
