@@ -21,7 +21,9 @@ public class GunBehavior : MonoBehaviour {
 
     void Start() {
         GameObject canvas = GameObject.Find("CanvasRenderer");
-        GameObject sliderObject = Instantiate(Resources.Load("GunCooldownSlider"), canvas.transform) as GameObject;
+        VerticalLayoutGroup sliderLayouGroup = canvas.GetComponent<VerticalLayoutGroup>();
+
+        GameObject sliderObject = Instantiate(Resources.Load("GunCooldownSlider"), sliderLayouGroup.transform) as GameObject;
         slider = sliderObject.GetComponent<Slider>();
         sliderScript = slider.GetComponent<SliderController>();
     }
