@@ -16,17 +16,25 @@ public class PlayerSpaceShip : MonoBehaviour {
     private float heat = 0.0f;
 
     void Start() {
-        GunBehavior peaShooter = new GunBehavior("Pea Shooter", 0.3f, 0.1f);
-        GunBehavior mallowGun = new GunBehavior("Mallow Gun", 1.0f, 1.0f);
-        GunBehavior wristRocket = new GunBehavior("Wrist Rocket", 0.8f, 1.1f);
+        GunBehavior peaShooter = makeGun("Pea Shooter", 1.0f, 1.0f);
+        GunBehavior mallowGun = makeGun("Mallow Gun", 1.0f, 1.0f);
+        GunBehavior wristRocket = makeGun("Wrist Rocket", 0.8f, 1.1f);
 
         shield = new ShieldBehavior("Mighty Shield", 10.0f, 0.5f);
         armor = new ArmorBehavior("Cardboard", 100.0f);
         heatsink = new HeatsinkBehavior(1.0f);
 
-        guns.Add("first",peaShooter);
-        guns.Add("second",mallowGun);
-        guns.Add("third",wristRocket);
+        guns.Add("first", peaShooter);
+        guns.Add("second", mallowGun);
+        guns.Add("third", wristRocket);
+    }
+
+    private GunBehavior makeGun(string gunName, float fireRate, float heat) {
+        GunBehavior gun = gameObject.AddComponent<GunBehavior>();
+        gun.weaponName = gunName;
+        gun.fireRate = fireRate;
+        gun.heat = heat;
+        return gun;
     }
 
     void Update () {

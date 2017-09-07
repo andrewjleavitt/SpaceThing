@@ -9,10 +9,10 @@ public class LevelManager : MonoBehaviour {
     public PlayerSpaceShip player;
 
     public void SetupLevel() {
-        LayoutObject();
+        LayoutScene();
     }
 
-    private void LayoutObject() {
+    private void LayoutScene() {
         Instantiate(enemy, new Vector3(9f, 0f, 0f), Quaternion.identity);
         Instantiate(player, new Vector3(-9f, 0f, 0f), Quaternion.identity);
     }
