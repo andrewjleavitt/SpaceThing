@@ -13,12 +13,6 @@ public class GunBehavior : MonoBehaviour {
     private Slider slider;
     private SliderController sliderScript;
 
-    public GunBehavior(string newWeaponName, float newFireRate, float newHeat) {
-        weaponName = newWeaponName;
-        fireRate = newFireRate;
-        heat = newHeat;
-    }
-
     void Start() {
         GameObject canvas = GameObject.Find("CanvasRenderer");
         VerticalLayoutGroup sliderLayouGroup = canvas.GetComponent<VerticalLayoutGroup>();
