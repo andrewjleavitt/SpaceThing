@@ -22,19 +22,11 @@ public class PlayerSpaceShip : MonoBehaviour {
 
         shield = new ShieldBehavior("Mighty Shield", 10.0f, 0.5f);
         armor = new ArmorBehavior("Cardboard", 100.0f);
-        heatsink = new HeatsinkBehavior(1.0f);
+		heatsink = makeHeatSink(1.0f);
 
         guns.Add("first", peaShooter);
         guns.Add("second", mallowGun);
         guns.Add("third", wristRocket);
-    }
-
-    private GunBehavior makeGun(string gunName, float fireRate, float heat) {
-        GunBehavior gun = gameObject.AddComponent<GunBehavior>();
-        gun.weaponName = gunName;
-        gun.fireRate = fireRate;
-        gun.heat = heat;
-        return gun;
     }
 
     void Update () {
@@ -83,4 +75,18 @@ public class PlayerSpaceShip : MonoBehaviour {
         guns[v].Trigger();
         guns[v].HeatTransfer();
     }
+
+	private GunBehavior makeGun(string gunName, float fireRate, float heat) {
+		GunBehavior gun = gameObject.AddComponent<GunBehavior>();
+		gun.weaponName = gunName;
+		gun.fireRate = fireRate;
+		gun.heat = heat;
+		return gun;
+	}
+
+	private HeatsinkBehavior makeHeatSink(float sinkAmount) {
+		HeatsinkBehavior heatsink = gameObject.AddComponent<HeatsinkBehavior> ();
+		heatsink.sink = sinkAmount;
+		return heatsink;
+	}
 }
