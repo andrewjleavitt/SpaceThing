@@ -1,29 +1,41 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class HeatsinkBehavior : MonoBehaviour {
 
-    public float sink = 1.0f;
+    public float sinkRate = 1.0f;
+    public float heatThreshold = 0.0f;
 
+    private float sinkAmount = 1.0f;
+    private float currentHeat = 0.0f;
     private float nextSink = 0.0f;
-    private float rate = 0.0f;
-	private SliderController sliderScript;
+	private HeatsinkSliderController sliderScript;
 
-    public float Sink() {
-        if (Time.time < nextSink) {
-            return -1;
-        }
-
-        nextSink = Time.time + rate;
-        return sink;
+    void Start() {
+        InitSlider();
     }
 
-	void InitSlider ()
-	{
-		GameObject canvas = GameObject.Find ("CanvasRenderer");
-		VerticalLayoutGroup sliderLayouGroup = canvas.GetComponent<VerticalLayoutGroup> ();
-		GameObject sliderObject = Instantiate (Resources.Load ("GunCooldownSlider"), sliderLayouGroup.transform) as GameObject;
-		Slider slider = sliderObject.GetComponent<Slider> ();
-		sliderScript = slider.GetComponent<SliderController> ();
-	}
+    private void Update() {
+        if(Time.time > nextSink) { 
+            currentHeat = Mathf.Max(0, currentHeat-= sinkAmount);
+        }
+
+    }
+
+    public void SinkHeat(float heat) {
+        currentHeat += heat;
+    }
+
+    internal bool IsOverheating() {
+        return currentHeat > heatThreshold;
+    }
+
+    private void InitSlider() {
+        GameObject canvas = GameObject.Find("CanvasRenderer");
+        VerticalLayoutGroup sliderLayouGroup = canvas.GetComponent<VerticalLayoutGroup>();
+        GameObject sliderObject = Instantiate(Resources.Load("HeatsinkSlider"), sliderLayouGroup.transform) as GameObject;
+        Slider slider = sliderObject.GetComponent<Slider>();
+        sliderScript = slider.GetComponent<HeatsinkSliderController>();
+    }
 }

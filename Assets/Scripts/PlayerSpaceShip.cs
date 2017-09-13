@@ -22,7 +22,7 @@ public class PlayerSpaceShip : MonoBehaviour {
 
         shield = new ShieldBehavior("Mighty Shield", 10.0f, 0.5f);
         armor = new ArmorBehavior("Cardboard", 100.0f);
-		heatsink = makeHeatSink(1.0f);
+		heatsink = makeHeatSink(10.0f, 2.0f);
 
         guns.Add("first", peaShooter);
         guns.Add("second", mallowGun);
@@ -30,29 +30,14 @@ public class PlayerSpaceShip : MonoBehaviour {
     }
 
     void Update () {
-        if (!IsOverheating()) {
+        if (!heatsink.IsOverheating()) {
             GetUserAction();
         }
-        SinkHeat();
         RegenerateShields();
     }
 
     private void RegenerateShields() {
         shield.Recharge();
-    }
-
-    private void SinkHeat() {
-        float sink = heatsink.Sink();
-
-        if (sink == -1f) {
-            return;
-        }
-
-        Mathf.Max(0, heat -= sink);
-    }
-
-    private bool IsOverheating() {
-        return heat > heatThreshold;
     }
 
     private void GetUserAction() {
@@ -73,7 +58,7 @@ public class PlayerSpaceShip : MonoBehaviour {
 
     private void FireGunInPosition(string v) {
         guns[v].Trigger();
-        guns[v].HeatTransfer();
+        heatsink.SinkHeat(guns[v].HeatTransfer());
     }
 
 	private GunBehavior makeGun(string gunName, float fireRate, float heat) {
@@ -84,9 +69,10 @@ public class PlayerSpaceShip : MonoBehaviour {
 		return gun;
 	}
 
-	private HeatsinkBehavior makeHeatSink(float sinkAmount) {
+	private HeatsinkBehavior makeHeatSink(float heatThreshold, float sinkRate) {
 		HeatsinkBehavior heatsink = gameObject.AddComponent<HeatsinkBehavior> ();
-		heatsink.sink = sinkAmount;
+		heatsink.heatThreshold = heatThreshold;
+		heatsink.sinkRate = sinkRate;
 		return heatsink;
-	}
+    }
 }
