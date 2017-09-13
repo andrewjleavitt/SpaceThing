@@ -6,17 +6,22 @@ using UnityEngine;
 public class SliderController : MonoBehaviour {
 
     Slider slider;
+    private float value;
 
 	void Start () {
-        slider = GetComponent<Slider>();
+        slider = gameObject.GetComponent<Slider>();
 	}
 	
 	void Update () {
-        slider.value = Time.time;
+        slider.value = value;
     }
 
     public void setMinMax(float min, float max) {
         slider.minValue = min;
         slider.maxValue = max;
+    }
+
+    public void setSliderValue(float newValue) {
+        value = newValue;
     }
 }

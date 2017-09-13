@@ -29,7 +29,7 @@ public class EnemySpaceShip : MonoBehaviour {
     }
 
     void Update() {
-        getAiAction();
+        //getAiAction();
     }
 
     void getAiAction() {

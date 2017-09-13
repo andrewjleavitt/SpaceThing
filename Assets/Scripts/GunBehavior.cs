@@ -12,9 +12,19 @@ public class GunBehavior : MonoBehaviour {
 
     private Slider slider;
     private SliderController sliderScript;
+    private bool isSliderInitialized;
 
     void Start() {
-		InitSlider ();
+		InitSlider();
+    }
+
+    private void Update() {
+        if (!isSliderInitialized) {
+            sliderScript.setMinMax(Time.time, nextFire);
+            isSliderInitialized = true;
+        }
+
+        sliderScript.setSliderValue(Time.time);
     }
 
     public void Trigger() {
@@ -40,12 +50,11 @@ public class GunBehavior : MonoBehaviour {
         heatBuildUp += heat; ;
     }
 
-	void InitSlider ()
-	{
-		GameObject canvas = GameObject.Find ("CanvasRenderer");
-		VerticalLayoutGroup sliderLayouGroup = canvas.GetComponent<VerticalLayoutGroup> ();
-		GameObject sliderObject = Instantiate (Resources.Load ("GunCooldownSlider"), sliderLayouGroup.transform) as GameObject;
-		slider = sliderObject.GetComponent<Slider> ();
-		sliderScript = slider.GetComponent<SliderController> ();
-	}
+	void InitSlider() {
+		GameObject canvas = GameObject.Find("CanvasRenderer");
+		VerticalLayoutGroup sliderLayoutGroup = canvas.GetComponent<VerticalLayoutGroup>();
+		GameObject sliderObject = Instantiate(Resources.Load ("MySlider"), sliderLayoutGroup.transform) as GameObject;
+		slider = sliderObject.GetComponent<Slider>();
+		sliderScript = slider.GetComponent<SliderController>();
+    }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 
 public class HeatsinkSliderController : MonoBehaviour {
 
@@ -9,10 +10,15 @@ public class HeatsinkSliderController : MonoBehaviour {
 
     void Start() {
         slider = GetComponent<Slider>();
+        Debug.unityLogger.Log(slider);
     }
 
     public void setMinMax(float min, float max) {
         slider.minValue = min;
         slider.maxValue = max;
+    }
+
+    public void setSliderValue(float value) {
+        slider.value = value;
     }
 }

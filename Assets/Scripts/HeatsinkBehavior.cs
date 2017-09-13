@@ -10,16 +10,28 @@ public class HeatsinkBehavior : MonoBehaviour {
     private float sinkAmount = 1.0f;
     private float currentHeat = 0.0f;
     private float nextSink = 0.0f;
-	private HeatsinkSliderController sliderScript;
+
+    private Slider slider;
+    private SliderController sliderScript;
+    private bool isSliderInitialized = false;
 
     void Start() {
         InitSlider();
     }
 
-    private void Update() {
-        if(Time.time > nextSink) { 
-            currentHeat = Mathf.Max(0, currentHeat-= sinkAmount);
+    void Update() {
+        if (!isSliderInitialized) {
+            sliderScript.setMinMax(0.0f, heatThreshold);
+            isSliderInitialized = true;
         }
+        sliderScript.setSliderValue(currentHeat);
+
+        if (Time.time < nextSink) {
+            return;
+        }
+
+        currentHeat = Mathf.Max(0.0f, currentHeat-= sinkAmount);
+        nextSink = Time.time + sinkRate;
 
     }
 
@@ -31,11 +43,11 @@ public class HeatsinkBehavior : MonoBehaviour {
         return currentHeat > heatThreshold;
     }
 
-    private void InitSlider() {
+    void InitSlider() {
         GameObject canvas = GameObject.Find("CanvasRenderer");
-        VerticalLayoutGroup sliderLayouGroup = canvas.GetComponent<VerticalLayoutGroup>();
-        GameObject sliderObject = Instantiate(Resources.Load("HeatsinkSlider"), sliderLayouGroup.transform) as GameObject;
-        Slider slider = sliderObject.GetComponent<Slider>();
-        sliderScript = slider.GetComponent<HeatsinkSliderController>();
+        VerticalLayoutGroup sliderLayoutGroup = canvas.GetComponent<VerticalLayoutGroup>();
+        GameObject sliderObject = Instantiate(Resources.Load("MySlider"), sliderLayoutGroup.transform) as GameObject;
+        slider = sliderObject.GetComponent<Slider>();
+        sliderScript = slider.GetComponent<SliderController>();
     }
 }

@@ -13,16 +13,16 @@ public class PlayerSpaceShip : MonoBehaviour {
     public ShieldBehavior shield;
     public Dictionary <string, GunBehavior> guns = new Dictionary<string, GunBehavior>();
     public HeatsinkBehavior heatsink;
-    private float heat = 0.0f;
 
     void Start() {
-        GunBehavior peaShooter = makeGun("Pea Shooter", 1.0f, 1.0f);
+        GunBehavior peaShooter = makeGun("Pea Shooter", 1.0f, 3.0f);
         GunBehavior mallowGun = makeGun("Mallow Gun", 1.0f, 1.0f);
         GunBehavior wristRocket = makeGun("Wrist Rocket", 0.8f, 1.1f);
 
         shield = new ShieldBehavior("Mighty Shield", 10.0f, 0.5f);
         armor = new ArmorBehavior("Cardboard", 100.0f);
-		heatsink = makeHeatSink(10.0f, 2.0f);
+		makeHeatsink (10.0f, 2.0f);
+        heatsink = gameObject.GetComponent<HeatsinkBehavior>();
 
         guns.Add("first", peaShooter);
         guns.Add("second", mallowGun);
@@ -69,10 +69,9 @@ public class PlayerSpaceShip : MonoBehaviour {
 		return gun;
 	}
 
-	private HeatsinkBehavior makeHeatSink(float heatThreshold, float sinkRate) {
+	private void makeHeatsink(float heatThreshold, float sinkRate) {
 		HeatsinkBehavior heatsink = gameObject.AddComponent<HeatsinkBehavior> ();
 		heatsink.heatThreshold = heatThreshold;
 		heatsink.sinkRate = sinkRate;
-		return heatsink;
     }
 }
