@@ -24,13 +24,9 @@ public class HeatsinkBehavior : MonoBehaviour {
             sliderScript.setMinMax(0.0f, heatThreshold);
             isSliderInitialized = true;
         }
-        sliderScript.setSliderValue(currentHeat);
 
-        if (Time.time < nextSink) {
-            return;
-        }
-
-        currentHeat = Mathf.Max(0.0f, currentHeat-= sinkAmount);
+        currentHeat = Mathf.Max(0.0f, currentHeat-= (sinkAmount/60));
+		sliderScript.setSliderValue(currentHeat);
         nextSink = Time.time + sinkRate;
 
     }
