@@ -5,21 +5,28 @@ using UnityEngine;
 public class MissileController : MonoBehaviour {
 
     public float thrust = 5.0f;
+    public float startThrust = 5.0f;
 
+    private float createdAt;
     private Rigidbody2D rb;
     private GameObject target;
 
 	void Start () {
-        rb = GetComponent<Rigidbody2D>();		
+        rb = GetComponent<Rigidbody2D>();
+        rb.AddForce(transform.up * 10.0f);
+        createdAt = Time.time;
+        
 	}
 
     void FixedUpdate() {
-        rb.AddForce(transform.up * thrust);
+        if (Time.time > createdAt + startThrust) {
+            rb.AddForce(transform.up * thrust);
+        }
     }
 
     void Update() {
         target = FindClosestEnemy();
-        if(!target) {
+        if(target == null) {
             return;
         }
         Vector3 dir = target.transform.position - transform.position;

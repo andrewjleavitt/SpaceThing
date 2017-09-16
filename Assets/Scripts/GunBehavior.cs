@@ -40,7 +40,13 @@ public class GunBehavior : MonoBehaviour {
     }
 
     private void Fire() {
+        Random rand = new Random();
         Debug.unityLogger.Log("INFO", string.Format("Gun: {0} Triggered", weaponName));
+        Instantiate(
+            Resources.Load("Missile"),
+            GetComponentInParent<PlayerSpaceShip>().transform.position,
+            new Quaternion(90f, 0f, Random.Range(0.0f, 180.0f), 0.0f)
+        );
         Exhaust();
         nextFire = Time.time + fireRate;
         sliderScript.setMinMax(Time.time, nextFire);
